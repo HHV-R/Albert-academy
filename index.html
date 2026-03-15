@@ -1,39 +1,1125 @@
-<!DOCTYPE html>
-<html lang="ar">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>CodeMaster Pro Academy</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeMaster Pro Academy V5</title>
+  <style>
+    :root {
+      --bg: #071019;
+      --bg-2: #0d1825;
+      --panel: rgba(13, 24, 37, 0.94);
+      --panel-2: rgba(9, 17, 27, 0.98);
+      --line: rgba(122, 162, 255, 0.16);
+      --text: #eef7ff;
+      --muted: #9db2c7;
+      --accent: #66ffd8;
+      --accent-2: #7aa2ff;
+      --gold: #ffd166;
+      --danger: #ff7d7d;
+      --success: #8dffb0;
+      --radius: 22px;
+      --shadow: 0 18px 60px rgba(0,0,0,.36);
+    }* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, rgba(122,162,255,.15), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(102,255,216,.09), transparent 32%),
+    linear-gradient(135deg, #050c14, #09131d 45%, #071019 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+code {
+  background: rgba(255,255,255,.06);
+  padding: 2px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,.07);
+  font-family: Consolas, monospace;
+}
+
+.container {
+  width: min(1380px, calc(100% - 24px));
+  margin: auto;
+}
+
+.hidden { display: none !important; }
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(14px);
+  background: rgba(4,11,19,.84);
+  border-bottom: 1px solid var(--line);
+}
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.logo {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--accent-2), var(--accent));
+  color: #041018;
+  font-weight: 900;
+  box-shadow: var(--shadow);
+}
+
+.brand-title { font-weight: 900; }
+.brand-title small { display: block; color: var(--muted); font-weight: 400; }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.nav a, .btn, .tab-btn, .choice-btn {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: .25s ease;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(0,0,0,.16);
+}
+
+.nav a:hover, .btn:hover, .btn.active, .tab-btn.active, .choice-btn:hover {
+  transform: translateY(-2px);
+  border-color: rgba(102,255,216,.32);
+}
+
+.btn.primary, .tab-btn.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #041018;
+  border: none;
+}
+
+.btn.gold {
+  background: linear-gradient(135deg, var(--gold), #ff9f68);
+  color: #111;
+  border: none;
+}
+
+.hero, section { padding: 34px 0; }
+.hero { padding-top: 72px; }
+
+.hero-grid, .grid-2, .grid-3, .grid-4, .dashboard-grid, .stats-grid, .certificate-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.hero-grid { grid-template-columns: 1.12fr .88fr; align-items: center; }
+.grid-2, .certificate-grid { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4, .dashboard-grid, .stats-grid { grid-template-columns: repeat(4, 1fr); }
+
+.card, .hero-card, .glass, .panel, .course-card, .video-card, .article-card, .exercise-card, .dashboard-card, .lesson-card, .admin-card, .faq-item, .cert-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hero-card, .glass, .course-card, .video-card, .article-card, .exercise-card, .dashboard-card, .lesson-card, .admin-card, .cert-card {
+  padding: 22px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(102,255,216,.18);
+  background: rgba(102,255,216,.08);
+  color: var(--accent);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+h1, h2, h3, h4, p { margin-top: 0; }
+h1 { font-size: clamp(2rem, 5vw, 4.2rem); line-height: 1.06; margin-bottom: 14px; }
+.muted, .section-head p { color: var(--muted); }
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 18px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.cta-row, .tabs, .actions, .filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cta-row { margin-top: 22px; }
+
+.icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, rgba(122,162,255,.24), rgba(102,255,216,.18));
+  border: 1px solid var(--line);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: grid;
+  gap: 10px;
+}
+
+.list li {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.05);
+  color: #dceafa;
+  line-height: 1.8;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: rgba(102,255,216,.12);
+  color: var(--accent);
+  border: 1px solid rgba(102,255,216,.18);
+  margin-bottom: 12px;
+}
+
+.thumb {
+  height: 185px;
+  border-radius: 18px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 18px;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.42)),
+    linear-gradient(135deg, rgba(122,162,255,.28), rgba(102,255,216,.18));
+  border: 1px solid var(--line);
+  margin-bottom: 14px;
+  font-weight: 900;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  outline: none;
+  font-size: 1rem;
+}
+
+.textarea { min-height: 120px; resize: vertical; }
+
+.progress-wrap {
+  background: rgba(255,255,255,.05);
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  height: 14px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transition: .4s ease;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.choice-btn {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.choice-btn.correct {
+  background: rgba(141,255,176,.14);
+  border-color: rgba(141,255,176,.45);
+}
+
+.choice-btn.wrong {
+  background: rgba(255,125,125,.14);
+  border-color: rgba(255,125,125,.45);
+}
+
+.faq-wrap { display: grid; gap: 14px; }
+.faq-item button {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  text-align: right;
+  padding: 18px 20px;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-content {
+  display: none;
+  padding: 0 20px 20px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
+.faq-item.open .faq-content { display: block; }
+
+.certificate {
+  background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  padding: 34px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.certificate h3 { font-size: 2rem; color: var(--gold); }
+.certificate .name { font-size: 2.1rem; font-weight: 900; color: var(--accent); }
+
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(2, 8, 15, .84);
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  backdrop-filter: blur(12px);
+}
+
+.welcome-card {
+  width: min(840px, 100%);
+  background: linear-gradient(180deg, rgba(18, 30, 44, .98), rgba(7, 15, 24, .98));
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  padding: 34px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.expert-main {
+  font-size: clamp(1.5rem, 4vw, 2.4rem);
+  color: var(--accent);
+  font-weight: 900;
+  margin-bottom: 10px;
+}
+
+.telegram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  margin-top: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.05);
+  word-break: break-all;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2500;
+  background: rgba(10,18,28,.96);
+  color: var(--text);
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transform: translateY(120px);
+  transition: .35s ease;
+  max-width: 340px;
+}
+
+.toast.show { transform: translateY(0); }
+
+.footer {
+  margin-top: 20px;
+  padding: 26px 0 40px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+@media (max-width: 1100px) {
+  .hero-grid, .grid-4, .grid-3, .grid-2, .dashboard-grid, .stats-grid, .certificate-grid { grid-template-columns: 1fr; }
+  .topbar-inner { flex-direction: column; }
+  .nav { justify-content: flex-start; }
+}
+
+  </style>
 </head>
-
 <body>
-
-<header>
-<h1>CodeMaster Pro Academy</h1>
-<p>Albert Gonzalez</p>
-
-<nav>
-<a href="courses.html">الكورسات</a>
-<a href="dashboard.html">لوحة الطالب</a>
-<a href="admin.html">لوحة الإدارة</a>
-</nav>
-</header>
-
-<section>
-
-<h2>تعلم البرمجة من الصفر</h2>
-
-<p>
-Python - Cyber Security - AI - Web Development
-</p>
-
-<a href="courses.html">
-<button>ابدأ التعلم</button>
-</a>
-
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-card">
+      <div class="eyebrow">الأكاديمية العملاقة V5</div>
+      <h2>مرحباً بك في CodeMaster Pro Academy</h2>
+      <div class="expert-main">Albert Gonzalez</div>
+      <p class="muted">منصة تعليم برمجة كاملة وقابلة للبيع، تشمل Python و Cyber Security و AI و Web Development، مع لوحة طالب، لوحة إدارة داخلية، مكتبة فيديوهات، مقالات، تمارين، اختبارات، حفظ تقدم، وشهادة إتمام.</p>
+      <a class="telegram-link" href="https://t.me/KaliLinux_Arabic" target="_blank" rel="noopener noreferrer">القناة الرسمية: https://t.me/KaliLinux_Arabic</a>
+      <div class="cta-row" style="justify-content:center;">
+        <button class="btn primary" onclick="closeWelcome()">دخول الأكاديمية</button>
+        <button class="btn gold" onclick="window.open('https://t.me/KaliLinux_Arabic','_blank')">فتح القناة</button>
+      </div>
+    </div>
+  </div>  <div class="toast" id="toast"></div>  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <div class="logo">CM</div>
+        <div class="brand-title">CodeMaster Pro Academy<small>منصة تعليم برمجة من الصفر للاحتراف</small></div>
+      </div>
+      <nav class="nav">
+        <a href="#home">الرئيسية</a>
+        <a href="#dashboard">لوحة الطالب</a>
+        <a href="#paths">المسارات</a>
+        <a href="#library">المكتبة</a>
+        <a href="#articles">المقالات</a>
+        <a href="#exercises">التمارين</a>
+        <a href="#progress">التقدم</a>
+        <a href="#certificate">الشهادة</a>
+        <a href="#admin">الإدارة</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">التواصل</a>
+      </nav>
+    </div>
+  </header>  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <div class="eyebrow">أكاديمية حقيقية بواجهة احترافية</div>
+          <h1>أكاديمية برمجة كاملة<br>لتعليم <span style="color:var(--accent)">Python + Cyber + AI + Web</span><br>من الصفر إلى الاحتراف</h1>
+          <p class="muted">هذه نسخة قوية جداً لموقع أكاديمية تعليمية، مناسبة للعرض والبيع والتخصيص. تحتوي على بنية منصة حقيقية: ملف طالب، تقدم محفوظ، أقسام متعددة، محتوى تدريبي منظم، تمارين واختبارات، وشهادة إتمام قابلة للطباعة.</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#dashboard">ابدأ كطالب</a>
+            <button class="btn" onclick="scrollToSection('admin')">عرض لوحة الإدارة</button>
+            <button class="btn gold" onclick="toggleTheme()">تبديل الألوان</button>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="glass">
+            <h3>ماذا تحتوي الأكاديمية؟</h3>
+            <ul class="list">
+              <li>4 مسارات رئيسية</li>
+              <li>12 دروس فيديو نموذجية</li>
+              <li>8 مقالات تعليمية</li>
+              <li>12 تمريناً تفاعلياً</li>
+              <li>نظام تقدم وشهادة</li>
+            </ul>
+          </div>
+          <div class="glass">
+            <h3>مناسبة للبيع لمن؟</h3>
+            <ul class="list">
+              <li>مدرب برمجة</li>
+              <li>قناة تعليمية</li>
+              <li>أكاديمية صغيرة</li>
+              <li>منتج رقمي جاهز</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section><section id="dashboard">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>لوحة الطالب</h2>
+        <p>هذه الواجهة تحفظ البيانات في المتصفح عبر LocalStorage وتعرض إحصائيات الطالب.</p>
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="resetProgress()">تصفير التقدم</button>
+        <button class="btn primary" onclick="fillDemoProgress()">تعبئة تجريبية</button>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="dashboard-card">
+        <div class="badge">بيانات الطالب</div>
+        <input class="input" id="studentName" placeholder="اسم الطالب" />
+        <div class="cta-row">
+          <button class="btn primary" onclick="saveStudentName()">حفظ الاسم</button>
+          <button class="btn" onclick="loadStudentName()">استرجاع الاسم</button>
+        </div>
+        <ul class="list">
+          <li><strong>الاسم الحالي:</strong> <span id="studentNameDisplay">غير محدد</span></li>
+          <li><strong>وضع الأكاديمية:</strong> نسخة عرض احترافية قابلة للتطوير</li>
+        </ul>
+      </div>
+      <div class="dashboard-card">
+        <div class="badge">إحصائيات عامة</div>
+        <div class="stats-grid">
+          <div class="dashboard-card"><strong id="statTracks">0</strong><span class="muted">مسارات</span></div>
+          <div class="dashboard-card"><strong id="statVideos">0</strong><span class="muted">فيديوهات</span></div>
+          <div class="dashboard-card"><strong id="statArticles">0</strong><span class="muted">مقالات</span></div>
+          <div class="dashboard-card"><strong id="statExercises">0</strong><span class="muted">تمارين</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<script src="app.js"></script>
+<section id="paths">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>المسارات التعليمية</h2>
+        <p>كل مسار يمثل تخصصاً مستقلاً ويمكن اعتباره كورس كامل داخل الأكاديمية.</p>
+      </div>
+    </div>
+    <div class="grid-4">
+      <article class="course-card">
+        <div class="icon">🐍</div>
+        <h3>Python Developer</h3>
+        <p class="muted">أساسيات اللغة، البنى، الدوال، الملفات، OOP، والأتمتة.</p>
+        <ul class="list">
+          <li>Python Basics</li>
+          <li>Data Types & Conditions</li>
+          <li>Functions & Collections</li>
+          <li>Files & OOP</li>
+        </ul>
+        <div class="cta-row"><button class="btn primary" onclick="completeTrack('python')">إكمال المسار</button></div>
+      </article>
+      <article class="course-card">
+        <div class="icon">🛡️</div>
+        <h3>Cyber Security</h3>
+        <p class="muted">أساسيات الشبكات، مفاهيم الأمن، التهديدات، والوعي الدفاعي.</p>
+        <ul class="list">
+          <li>Network Fundamentals</li>
+          <li>Security Concepts</li>
+          <li>Threat Awareness</li>
+          <li>Defensive Thinking</li>
+        </ul>
+        <div class="cta-row"><button class="btn primary" onclick="completeTrack('cyber')">إكمال المسار</button></div>
+      </article>
+      <article class="course-card">
+        <div class="icon">🤖</div>
+        <h3>AI Starter</h3>
+        <p class="muted">مدخل حقيقي إلى AI و ML والمفاهيم الأساسية للنماذج والبيانات.</p>
+        <ul class="list">
+          <li>AI Foundations</li>
+          <li>Data Concepts</li>
+          <li>Model Thinking</li>
+          <li>Applied AI</li>
+        </ul>
+        <div class="cta-row"><button class="btn primary" onclick="completeTrack('ai')">إكمال المسار</button></div>
+      </article>
+      <article class="course-card">
+        <div class="icon">🌐</div>
+        <h3>Web Development</h3>
+        <p class="muted">HTML و CSS و JavaScript لبناء صفحات تفاعلية حديثة.</p>
+        <ul class="list">
+          <li>HTML Structure</li>
+          <li>CSS Layouts</li>
+          <li>JavaScript Basics</li>
+          <li>Frontend Projects</li>
+        </ul>
+        <div class="cta-row"><button class="btn primary" onclick="completeTrack('web')">إكمال المسار</button></div>
+      </article>
+    </div>
+  </div>
+</section>
 
-</body>
-</html>
+<section id="library">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>مكتبة الفيديوهات</h2>
+        <p>نموذج مكتبة فيديوهات داخلية مقسمة حسب التخصص.</p>
+      </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="videos-python">Python</button>
+        <button class="tab-btn" data-tab="videos-cyber">Cyber</button>
+        <button class="tab-btn" data-tab="videos-ai">AI</button>
+        <button class="tab-btn" data-tab="videos-web">Web</button>
+      </div>
+    </div>
+
+    <div class="tab-panel active" id="videos-python">
+      <div class="grid-3">
+        <article class="video-card"><div class="thumb"><span>Python Basics</span><span>01</span></div><h3>بداية بايثون من الصفر</h3><p class="muted">فهم التثبيت، أول برنامج، والمتغيرات.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('py1')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>Functions & Logic</span><span>02</span></div><h3>الدوال والمنطق</h3><p class="muted">كيف تنظّم الأكواد وتبني منطقاً قابلاً للتوسع.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('py2')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>OOP Project</span><span>03</span></div><h3>مشروع OOP</h3><p class="muted">تطبيق البرمجة الكائنية داخل مشروع صغير.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('py3')">تمت المشاهدة</button></div></article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="videos-cyber">
+      <div class="grid-3">
+        <article class="video-card"><div class="thumb"><span>Network Basics</span><span>01</span></div><h3>مبادئ الشبكات</h3><p class="muted">فهم IP و Ports والطبقات الأساسية.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('cy1')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>Threat Models</span><span>02</span></div><h3>أنواع التهديدات</h3><p class="muted">تصنيف المخاطر وفهم بيئة الهجوم والدفاع.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('cy2')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>Defense Basics</span><span>03</span></div><h3>العقلية الدفاعية</h3><p class="muted">كيف تحلل المخاطر وتتخذ وضعاً دفاعياً أفضل.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('cy3')">تمت المشاهدة</button></div></article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="videos-ai">
+      <div class="grid-3">
+        <article class="video-card"><div class="thumb"><span>AI Foundations</span><span>01</span></div><h3>أساسيات الذكاء الاصطناعي</h3><p class="muted">ما هو AI وما الفرق بينه وبين ML و DL.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('ai1')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>Data Thinking</span><span>02</span></div><h3>البيانات والنماذج</h3><p class="muted">فهم البيانات ودورها في تدريب النماذج.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('ai2')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>AI Apps</span><span>03</span></div><h3>بناء تطبيقات AI</h3><p class="muted">خط سير بناء تطبيقات تعتمد على الذكاء الاصطناعي.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('ai3')">تمت المشاهدة</button></div></article>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="videos-web">
+      <div class="grid-3">
+        <article class="video-card"><div class="thumb"><span>HTML Starter</span><span>01</span></div><h3>HTML من الصفر</h3><p class="muted">بناء هيكل صفحات الويب.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('web1')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>CSS Layouts</span><span>02</span></div><h3>تنسيق وتخطيط CSS</h3><p class="muted">فهم Flexbox و Grid والتجاوب.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('web2')">تمت المشاهدة</button></div></article>
+        <article class="video-card"><div class="thumb"><span>JS Interactivity</span><span>03</span></div><h3>تفاعل JavaScript</h3><p class="muted">الأحداث، DOM، وإضافة التفاعل للموقع.</p><div class="cta-row"><button class="btn primary" onclick="markVideo('web3')">تمت المشاهدة</button></div></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="articles">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>المقالات التعليمية</h2>
+        <p>مقالات داخلية تمثل مكتبة نظرية سريعة للطالب.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <article class="article-card">
+        <div class="badge">Python</div>
+        <h3>كيف تبدأ Python بالطريقة الصحيحة؟</h3>
+        <p class="muted">ابدأ بالمتغيرات، الأنواع، الجمل الشرطية، والحلقات. لا تقفز إلى المكتبات الكبيرة قبل فهم القاعدة. بعد كل درس اكتب مثالاً بيدك وحاول تغييره.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar1')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Cyber Security</div>
+        <h3>العقلية الدفاعية أهم من كثرة الأدوات</h3>
+        <p class="muted">الأمن السيبراني ليس مجرد أسماء أدوات، بل فهم البنية، الشبكات، المخاطر، وآليات الرصد والتحليل. هذه البداية الصحيحة لأي طالب في المجال.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar2')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">AI</div>
+        <h3>مدخل صحيح لعالم الذكاء الاصطناعي</h3>
+        <p class="muted">ابدأ بفهم البيانات، التقسيم، التقييم، والنماذج البسيطة. لا تجعل المصطلحات الكبيرة تربكك قبل بناء الفهم العملي.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar3')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Web</div>
+        <h3>كيف تبني واجهات ويب مرتبة؟</h3>
+        <p class="muted">ابدأ بهيكل HTML نظيف، ثم طبّق CSS واضحاً، ثم أضف JavaScript فقط عندما تحتاج التفاعل. التنظيم أهم من كثرة التأثيرات.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar4')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Career</div>
+        <h3>كيف تحوّل التعلم إلى منتج قابل للبيع؟</h3>
+        <p class="muted">حين ترتب العلم في كورسات، فيديوهات، مقالات، وتمارين، فأنت تبني منتجاً تعليمياً لا مجرد معلومات. هذه هي نقطة التحول من متعلم إلى صاحب مشروع رقمي.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar5')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Projects</div>
+        <h3>لماذا المشاريع الصغيرة أقوى من الحفظ؟</h3>
+        <p class="muted">المشروع الصغير المكتمل يرسخ المعرفة أكثر من قراءة عشر شروحات دون تطبيق. ابدأ صغيراً، ثم وسّع تدريجياً.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar6')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Discipline</div>
+        <h3>الاستمرارية أهم من الحماس المؤقت</h3>
+        <p class="muted">جلسة يومية قصيرة مع تطبيق فعلي أقوى بكثير من جلسة طويلة كل أسبوع ثم انقطاع. ابنِ عادة التعلم لا موجة حماس فقط.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar7')">تمت القراءة</button></div>
+      </article>
+      <article class="article-card">
+        <div class="badge">Clean Code</div>
+        <h3>الأسماء الواضحة تصنع كوداً أفضل</h3>
+        <p class="muted">سمِّ المتغيرات والدوال والمجلدات بوضوح. هذا وحده يرفع جودة المشروع ويقلل الأخطاء ويجعل البيع أو التسليم للعميل أسهل.</p>
+        <div class="cta-row"><button class="btn primary" onclick="markArticle('ar8')">تمت القراءة</button></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="exercises">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>التمارين والاختبارات</h2>
+        <p>تمارين تفاعلية سريعة مع تصحيح فوري لتوضيح فكرة المنصة الأكاديمية الحقيقية.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <article class="exercise-card">
+        <div class="badge">Python Quiz</div>
+        <h3>ما الكلمة المستخدمة لتعريف دالة في Python؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex1')">def</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex1')">function</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex1')">method</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Cyber Quiz</div>
+        <h3>أي بروتوكول يُستخدم لتصفح المواقع؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex2')">HTTP</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex2')">SMTP</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex2')">SSH</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">AI Quiz</div>
+        <h3>ما الذي يحتاجه النموذج عادة للتعلم؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex3')">بيانات</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex3')">ألوان واجهة</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex3')">صور فقط دائماً</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Web Quiz</div>
+        <h3>أي لغة تُستخدم لبناء هيكل الصفحة؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex4')">HTML</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex4')">CSS</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex4')">SQL</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Logic Quiz</div>
+        <h3>أي عبارة تُستخدم لاتخاذ قرار برمجي؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex5')">if</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex5')">for</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex5')">import</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Data Quiz</div>
+        <h3>أي بنية مناسبة لتخزين عناصر مرتبة؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex6')">list</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex6')">bool</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex6')">None</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Files Quiz</div>
+        <h3>ما الأفضل عند فتح ملف في Python؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex7')">with open(...)</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex7')">open فقط دائماً</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex7')">print الملف</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Security Quiz</div>
+        <h3>أي مفهوم مهم قبل تعلم أدوات الأمن؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex8')">فهم الشبكات</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex8')">جمع أدوات كثيرة فقط</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex8')">ألوان لينكس</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">AI Quiz</div>
+        <h3>ما الفرق الأشمل الذي يشمل ML؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex9')">AI</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex9')">CSS</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex9')">HTML</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Frontend Quiz</div>
+        <h3>من المسؤول غالباً عن التفاعل في المتصفح؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex10')">JavaScript</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex10')">PNG</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex10')">TXT</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Projects Quiz</div>
+        <h3>ما الأفضل للمبتدئ؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex11')">مشاريع صغيرة مكتملة</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex11')">مشروع ضخم دون إكمال</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex11')">حفظ فقط</button>
+      </article>
+      <article class="exercise-card">
+        <div class="badge">Career Quiz</div>
+        <h3>كيف يصبح العلم منتجاً؟</h3>
+        <button class="choice-btn" onclick="answerChoice(this, true, 'ex12')">بتنظيمه في أكاديمية أو كورس</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex12')">ببقائه ملاحظات فقط</button>
+        <button class="choice-btn" onclick="answerChoice(this, false, 'ex12')">بلا تطبيق</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="progress">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>نظام التقدم</h2>
+        <p>يحسب نسبة الإنجاز بناءً على المسارات والفيديوهات والمقالات والتمارين.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <article class="dashboard-card">
+        <h3>نسبة الإنجاز العامة</h3>
+        <div class="progress-wrap"><div class="progress-bar" id="overallProgressBar"></div></div>
+        <p id="overallProgressText" class="muted" style="margin-top:12px;">0%</p>
+      </article>
+      <article class="dashboard-card">
+        <h3>تقييم حالة الطالب</h3>
+        <p class="muted" id="studentStatus">ابدأ من المسارات أو الفيديوهات حتى يرتفع مستواك داخل الأكاديمية.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="certificate">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>شهادة الإتمام</h2>
+        <p>نموذج شهادة قابل للطباعة بعد وصول الطالب لنسبة جيدة.</p>
+      </div>
+      <div class="actions">
+        <button class="btn primary" onclick="generateCertificate()">تحديث الشهادة</button>
+        <button class="btn gold" onclick="window.print()">طباعة</button>
+      </div>
+    </div>
+    <div class="certificate-grid">
+      <article class="cert-card">
+        <div class="certificate">
+          <div class="eyebrow">Certificate of Completion</div>
+          <h3>CodeMaster Pro Academy</h3>
+          <p>تشهد الأكاديمية بأن الطالب:</p>
+          <div class="name" id="certificateName">طالب غير محدد</div>
+          <p>قد أتم بنجاح جزءاً مهماً من متطلبات الأكاديمية التعليمية.</p>
+          <p><strong>نسبة الإنجاز الحالية:</strong> <span id="certificateProgress">0%</span></p>
+          <p><strong>المشرف:</strong> Albert Gonzalez</p>
+        </div>
+      </article>
+      <article class="cert-card">
+        <h3>متى تصبح الشهادة ذات معنى؟</h3>
+        <ul class="list">
+          <li>عند إكمال مسارين أو أكثر</li>
+          <li>ومشاهدة جزء جيد من الفيديوهات</li>
+          <li>وقراءة المقالات الأساسية</li>
+          <li>وحل مجموعة من التمارين</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="admin">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>لوحة الإدارة النموذجية</h2>
+        <p>واجهة داخلية توضح كيف يمكن للعميل إدارة الأكاديمية. هذه نسخة عرض وليست Backend حقيقياً.</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      <article class="admin-card">
+        <div class="badge">إضافة كورس</div>
+        <input class="input" id="adminCourseTitle" placeholder="اسم الكورس الجديد" />
+        <textarea class="textarea" id="adminCourseDesc" placeholder="وصف مختصر للكورس"></textarea>
+        <div class="cta-row"><button class="btn primary" onclick="addAdminItem('course')">إضافة</button></div>
+      </article>
+      <article class="admin-card">
+        <div class="badge">إضافة فيديو</div>
+        <input class="input" id="adminVideoTitle" placeholder="عنوان الفيديو" />
+        <textarea class="textarea" id="adminVideoDesc" placeholder="وصف الفيديو أو رابطه"></textarea>
+        <div class="cta-row"><button class="btn primary" onclick="addAdminItem('video')">إضافة</button></div>
+      </article>
+      <article class="admin-card">
+        <div class="badge">إضافة مقال</div>
+        <input class="input" id="adminArticleTitle" placeholder="عنوان المقال" />
+        <textarea class="textarea" id="adminArticleDesc" placeholder="محتوى مختصر أو ملاحظات"></textarea>
+        <div class="cta-row"><button class="btn primary" onclick="addAdminItem('article')">إضافة</button></div>
+      </article>
+    </div>
+    <div class="dashboard-card" style="margin-top:18px;">
+      <h3>سجل الإضافات</h3>
+      <ul class="list" id="adminLog">
+        <li>لا توجد إضافات بعد.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2>الأسئلة الشائعة</h2>
+        <p>شرح سريع لأهم ما قد يسأله العميل أو الطالب.</p>
+      </div>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item"><button>هل هذه منصة حقيقية أم نموذج؟ <span>＋</span></button><div class="faq-content">هي منصة عرض قوية جداً بواجهة حقيقية وحفظ محلي داخل المتصفح. ولتحويلها إلى منصة إنتاجية كاملة مع مستخدمين وقاعدة بيانات نضيف Backend لاحقاً.</div></div>
+      <div class="faq-item"><button>هل يمكن بيعها للزبائن؟ <span>＋</span></button><div class="faq-content">نعم، هذه النسخة مناسبة جداً كنموذج أكاديمية يمكن تخصيصها باسم العميل وألوانه ومحتواه ثم بيعها كمنتج تعليمي.</div></div>
+      <div class="faq-item"><button>هل المعلومات دقيقة؟ <span>＋</span></button><div class="faq-content">نعم، المحتوى التعريفي داخل المسارات والمقالات والاختبارات مبني على مفاهيم تقنية صحيحة وعامة للمبتدئين والمتوسطين.</div></div>
+      <div class="faq-item"><button>ما الذي ينقصها لتصبح منصة إنتاجية كاملة؟ <span>＋</span></button><div class="faq-content">تسجيل دخول حقيقي، قاعدة بيانات، رفع ملفات، إدارة مستخدمين، وصلاحيات من الخادم. الواجهة هنا جاهزة كنقطة انطلاق قوية.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container grid-2">
+    <article class="contact-card">
+      <h2>بيانات المنتج</h2>
+      <ul class="list">
+        <li><strong>اسم الخبير:</strong> Albert Gonzalez</li>
+        <li><strong>القناة:</strong> <a href="https://t.me/KaliLinux_Arabic" target="_blank" rel="noopener noreferrer">https://t.me/KaliLinux_Arabic</a></li>
+        <li><strong>النوع:</strong> أكاديمية تعليم برمجة قابلة للبيع</li>
+        <li><strong>الحفظ:</strong> LocalStorage</li>
+        <li><strong>النشر:</strong> GitHub Pages / Netlify</li>
+      </ul>
+    </article>
+    <article class="contact-card">
+      <h2>ما الذي يمكن إضافته لاحقاً؟</h2>
+      <ul class="list">
+        <li>نظام حسابات حقيقي</li>
+        <li>قاعدة بيانات و API</li>
+        <li>رفع فيديوهات وروابط خارجية</li>
+        <li>دفع واشتراكات</li>
+        <li>شهادات PDF ديناميكية</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+  </main>  <footer class="footer">
+    <div class="container">
+      <strong>CodeMaster Pro Academy V5</strong>
+      <p>واجهة أكاديمية عملاقة قابلة للتخصيص والبيع، بمحتوى تقني صحيح وبنية تعليمية قوية.</p>
+    </div>
+  </footer>  <script>
+    const toast = document.getElementById('toast');
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+
+    let academyState = JSON.parse(localStorage.getItem('academyV5State') || 'null') || {
+      studentName: '',
+      tracks: [],
+      videos: [],
+      articles: [],
+      exercises: [],
+      adminLog: []
+    };
+
+    function saveState() {
+      localStorage.setItem('academyV5State', JSON.stringify(academyState));
+      updateDashboard();
+      renderAdminLog();
+      generateCertificate();
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => toast.classList.remove('show'), 2400);
+    }
+
+    function closeWelcome() {
+      welcomeOverlay.classList.add('hidden');
+      showToast('تم الدخول إلى الأكاديمية.');
+    }
+
+    function scrollToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleTheme() {
+      const current = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+      const alt = current !== '#ffd166';
+      document.documentElement.style.setProperty('--accent', alt ? '#ffd166' : '#66ffd8');
+      document.documentElement.style.setProperty('--accent-2', alt ? '#ff8fa3' : '#7aa2ff');
+      showToast('تم تغيير ألوان الأكاديمية.');
+    }
+
+    function saveStudentName() {
+      const value = document.getElementById('studentName').value.trim();
+      academyState.studentName = value;
+      saveState();
+      showToast('تم حفظ اسم الطالب.');
+    }
+
+    function loadStudentName() {
+      document.getElementById('studentName').value = academyState.studentName || '';
+      document.getElementById('studentNameDisplay').textContent = academyState.studentName || 'غير محدد';
+      showToast('تم استرجاع الاسم.');
+    }
+
+    function completeTrack(track) {
+      if (!academyState.tracks.includes(track)) academyState.tracks.push(track);
+      saveState();
+      showToast('تم حفظ إكمال المسار: ' + track);
+    }
+
+    function markVideo(video) {
+      if (!academyState.videos.includes(video)) academyState.videos.push(video);
+      saveState();
+      showToast('تم حفظ مشاهدة الفيديو.');
+    }
+
+    function markArticle(article) {
+      if (!academyState.articles.includes(article)) academyState.articles.push(article);
+      saveState();
+      showToast('تم حفظ قراءة المقال.');
+    }
+
+    function answerChoice(el, isCorrect, exerciseId) {
+      const parent = el.parentElement;
+      if (parent.dataset.locked === 'true') return;
+      parent.dataset.locked = 'true';
+      if (isCorrect) {
+        el.classList.add('correct');
+        if (!academyState.exercises.includes(exerciseId)) academyState.exercises.push(exerciseId);
+        showToast('إجابة صحيحة');
+      } else {
+        el.classList.add('wrong');
+        showToast('إجابة غير صحيحة');
+      }
+      saveState();
+    }
+
+    function calcProgress() {
+      const total = 4 + 12 + 8 + 12;
+      const done = academyState.tracks.length + academyState.videos.length + academyState.articles.length + academyState.exercises.length;
+      return Math.min(100, Math.round((done / total) * 100));
+    }
+
+    function updateDashboard() {
+      document.getElementById('studentNameDisplay').textContent = academyState.studentName || 'غير محدد';
+      document.getElementById('statTracks').textContent = academyState.tracks.length;
+      document.getElementById('statVideos').textContent = academyState.videos.length;
+      document.getElementById('statArticles').textContent = academyState.articles.length;
+      document.getElementById('statExercises').textContent = academyState.exercises.length;
+      const progress = calcProgress();
+      document.getElementById('overallProgressBar').style.width = progress + '%';
+      document.getElementById('overallProgressText').textContent = progress + '%';
+      const status = document.getElementById('studentStatus');
+      if (progress < 20) status.textContent = 'بداية جيدة. ابدأ بالمسارات الأساسية أولاً.';
+      else if (progress < 45) status.textContent = 'أنت تبني قاعدة جيدة. استمر في الفيديوهات والتمارين.';
+      else if (progress < 70) status.textContent = 'تقدم قوي. أنت تنتقل من الفهم إلى التطبيق.';
+      else if (progress < 90) status.textContent = 'ممتاز جداً. بقي لك القليل لتصل لمرحلة قوية.';
+      else status.textContent = 'رائع. مستوى متقدم داخل الأكاديمية.';
+    }
+
+    function generateCertificate() {
+      document.getElementById('certificateName').textContent = academyState.studentName || 'طالب غير محدد';
+      document.getElementById('certificateProgress').textContent = calcProgress() + '%';
+    }
+
+    function resetProgress() {
+      academyState = { studentName: academyState.studentName || '', tracks: [], videos: [], articles: [], exercises: [], adminLog: [] };
+      localStorage.setItem('academyV5State', JSON.stringify(academyState));
+      location.reload();
+    }
+
+    function fillDemoProgress() {
+      academyState.tracks = ['python', 'web'];
+      academyState.videos = ['py1', 'py2', 'web1', 'web2', 'ai1'];
+      academyState.articles = ['ar1', 'ar2', 'ar4', 'ar6'];
+      academyState.exercises = ['ex1', 'ex2', 'ex4', 'ex5', 'ex10'];
+      saveState();
+      showToast('تمت تعبئة تقدم تجريبي.');
+    }
+
+    function addAdminItem(type) {
+      let title = '';
+      let desc = '';
+      if (type === 'course') {
+        title = document.getElementById('adminCourseTitle').value.trim();
+        desc = document.getElementById('adminCourseDesc').value.trim();
+      } else if (type === 'video') {
+        title = document.getElementById('adminVideoTitle').value.trim();
+        desc = document.getElementById('adminVideoDesc').value.trim();
+      } else if (type === 'article') {
+        title = document.getElementById('adminArticleTitle').value.trim();
+        desc = document.getElementById('adminArticleDesc').value.trim();
+      }
+      if (!title) {
+        showToast('اكتب عنواناً أولاً.');
+        return;
+      }
+      academyState.adminLog.unshift(`${type.toUpperCase()}: ${title}${desc ? ' — ' + desc : ''}`);
+      academyState.adminLog = academyState.adminLog.slice(0, 12);
+      saveState();
+      showToast('تمت إضافة عنصر إلى السجل.');
+    }
+
+    function renderAdminLog() {
+      const log = document.getElementById('adminLog');
+      log.innerHTML = '';
+      if (!academyState.adminLog.length) {
+        log.innerHTML = '<li>لا توجد إضافات بعد.</li>';
+        return;
+      }
+      academyState.adminLog.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        log.appendChild(li);
+      });
+    }
+
+    document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn[data-tab]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.tab;
+        document.querySelectorAll('#library .tab-panel').forEach(panel => panel.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.querySelector('button').addEventListener('click', () => {
+        item.classList.toggle('open');
+        const icon = item.querySelector('span');
+        icon.textContent = item.classList.contains('open') ? '－' : '＋';
+      });
+    });
+
+    loadStudentName();
+    updateDashboard();
+    renderAdminLog();
+    generateCertificate();
+
+    window.closeWelcome = closeWelcome;
+    window.scrollToSection = scrollToSection;
+    window.toggleTheme = toggleTheme;
+    window.saveStudentName = saveStudentName;
+    window.loadStudentName = loadStudentName;
+    window.completeTrack = completeTrack;
+    window.markVideo = markVideo;
+    window.markArticle = markArticle;
+    window.answerChoice = answerChoice;
+    window.resetProgress = resetProgress;
+    window.fillDemoProgress = fillDemoProgress;
+    window.generateCertificate = generateCertificate;
+    window.addAdminItem = addAdminItem;
+    window.saveManualProgress = fillDemoProgress;
+  </script></body>
+  </html>
